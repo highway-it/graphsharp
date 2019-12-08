@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+
+    <PackageId>HIT.QuickGraph</PackageId>
+    <Description>Fork of the QuickGraph library for .NET Standard</Description>
+    <PackageTags>QuickGraph,graph</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Visible="false" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

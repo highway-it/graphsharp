@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+
+    <PackageId>HIT.GraphSharp.Wpf</PackageId>
+    <Description>Fork of the Graph# library WPF controls for .NET Core</Description>
+    <PackageTags>GraphSharp,Graph#,graph</PackageTags>
+
+    <RootNamespace>GraphSharp</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Visible="false" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GraphSharp\GraphSharp.csproj" />
+  </ItemGroup>
+
+</Project>
