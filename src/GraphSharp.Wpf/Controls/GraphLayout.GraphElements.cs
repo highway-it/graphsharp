@@ -335,14 +335,18 @@ namespace GraphSharp.Controls
 
         protected virtual void RemoveVertexControl(TVertex vertex)
         {
-            RunDestructionTransition(_vertexControls[vertex], false);
+            var vertexControl = _vertexControls[vertex];
+            RunDestructionTransition(vertexControl, false);
             _vertexControls.Remove(vertex);
+            Children.Remove(vertexControl);
         }
 
         protected virtual void RemoveEdgeControl(TEdge edge)
         {
-            RunDestructionTransition(_edgeControls[edge], false);
+            var edgeControl = _edgeControls[edge];
+            RunDestructionTransition(edgeControl, false);
             _edgeControls.Remove(edge);
+            Children.Remove(edgeControl);
         }
-	}
+    }
 }
