@@ -6,6 +6,7 @@
         private double _layerDistance = 15.0;
         private double _vertexDistance = 15.0;
         private int _positionMode = -1;
+        private bool _optimizeIsolatedVertices = false;
         private bool _optimizeWidth = false;
         private double _widthPerHeight = 1.0;
         private bool _minimizeEdgeLength = true;
@@ -75,6 +76,19 @@
 
                 _widthPerHeight = value;
                 NotifyPropertyChanged("WidthPerHeight");
+            }
+        }
+
+        public bool OptimizeIsolatedVertices
+        {
+            get { return _optimizeIsolatedVertices; }
+            set
+            {
+                if (value == _optimizeIsolatedVertices)
+                    return;
+
+                _optimizeIsolatedVertices = value;
+                NotifyPropertyChanged("OptimizeIsolatedVertices");
             }
         }
 

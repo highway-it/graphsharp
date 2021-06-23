@@ -36,6 +36,10 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
             _crossCounts = new int[_layers.Count];
             _sparseCompactionByLayerBackup = new IList<Edge<Data>>[_layers.Count];
             _alternatingLayers = new AlternatingLayer[_layers.Count];
+
+            if (_layers.Count == 0)
+                return;
+
             for (int i = 0; i < _layers.Count; i++)
                 _crossCounts[i] = int.MaxValue;
 

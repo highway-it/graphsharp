@@ -16,7 +16,9 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
         {
             RemoveCycles();
             RemoveLoops();
-            RemoveIsolatedVertices(); //it must run after the two method above           
+
+            if (Parameters.OptimizeIsolatedVertices)
+                RemoveIsolatedVertices(); //it must run after the two method above
         }
 
         private void RemoveIsolatedVertices()

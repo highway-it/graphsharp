@@ -271,6 +271,9 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
                     v.LayerIndex = i;
             }
 
+            if (_layers.Count == 0 && _isolatedVertices.Count > 0)
+                _layers.Add(new List<SugiVertex>(_isolatedVertices.Count));
+
             //minimize edge length
             if (Parameters.MinimizeEdgeLength)
             {

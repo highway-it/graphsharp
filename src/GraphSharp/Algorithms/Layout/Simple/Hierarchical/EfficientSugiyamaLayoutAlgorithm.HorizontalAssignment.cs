@@ -34,7 +34,9 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
 
         private void CalculatePositions()
         {
-            PutbackIsolatedVertices();
+            if (Parameters.OptimizeIsolatedVertices)
+                PutbackIsolatedVertices();
+
             CalculateLayerHeightsAndPositions();
             CalculateVerticalPositions();
 
