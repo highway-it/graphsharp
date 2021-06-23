@@ -4,7 +4,7 @@
     <Authors>Jean-Philippe Leconte</Authors>
     <Copyright>Copyright © HIT 2019</Copyright>
     <Company>HIT</Company>
-    <VersionPrefix>1.0.2</VersionPrefix>
+    <VersionPrefix>1.0.3</VersionPrefix>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/highway-it/graphsharp</RepositoryUrl>
     <PackageProjectUrl>https://github.com/highway-it/graphsharp</PackageProjectUrl>
