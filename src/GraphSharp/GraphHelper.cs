@@ -25,6 +25,27 @@ namespace GraphSharp
                 ( from e in g.OutEdges( vertex ) select e.Target ) ) ).Distinct();
         }
 
+        /// <summary>
+        /// Returns with the adjacent vertices of the <code>vertex</code>.
+        /// </summary>
+        /// <param name="g">The graph.</param>
+        /// <param name="vertex">The vertex which neighbours' we want to get.</param>
+        /// <param name="neighbours">The returned vertex neighbours.</param>
+        /// <returns>True if vertex is found in graph, false otherwise.</returns>
+        public static bool TryGetNeighbours<TVertex, TEdge>( this IBidirectionalGraph<TVertex, TEdge> g, TVertex vertex, out IEnumerable<TVertex> neighbours )
+            where TEdge : IEdge<TVertex>
+        {
+            if (g.TryGetInEdges(vertex, out var inEdges) && g.TryGetOutEdges(vertex, out var outEdges))
+            {
+                neighbours = ( ( from e in inEdges select e.Source )
+                    .Concat(
+                    ( from e in outEdges select e.Target ) ) ).Distinct();
+                return true;
+            }
+
+            neighbours = null;
+            return false;
+        }
 
         public static IEnumerable<TVertex> GetOutNeighbours<TVertex, TEdge>( this IVertexAndEdgeListGraph<TVertex, TEdge> g, TVertex vertex )
             where TEdge : IEdge<TVertex>
@@ -197,7 +218,7 @@ namespace GraphSharp
 
 
         /// <summary>
-        /// Creates a new BidirectionalGraph with the given types from the 
+        /// Creates a new BidirectionalGraph with the given types from the
         /// list of vertices, and the list of edges.
         /// </summary>
         /// <typeparam name="TVertex">The type of the vertices.</typeparam>

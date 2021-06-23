@@ -264,11 +264,11 @@ namespace GraphSharp.Controls
         {
             VertexControl presenter = _vertexControls[vertex];
             //initialize position
-            if (Graph.Degree(vertex) > 0)
+            if (Graph.TryGetNeighbours(vertex, out var neighbours))
             {
                 var pos = new Point();
                 int count = 0;
-                foreach (var neighbour in Graph.GetNeighbours(vertex))
+                foreach (var neighbour in neighbours)
                 {
                     VertexControl neighbourControl;
                     if (_vertexControls.TryGetValue(neighbour, out neighbourControl))
