@@ -90,7 +90,10 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
                     _vertexSizes.TryGetValue(vertex, out size);
 
                 if (ignoreCollapsedVertices && (size.Width == 0.0 || size.Height == 0.0))
+                {
+                    VertexPositions[vertex] = default;
                     continue;
+                }
 
                 var vertexWrapper = new SugiVertex(vertex, size);
                 _graph.AddVertex(vertexWrapper);
