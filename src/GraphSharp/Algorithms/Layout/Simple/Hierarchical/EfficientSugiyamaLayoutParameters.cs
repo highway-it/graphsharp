@@ -10,6 +10,7 @@
         private bool _optimizeWidth = false;
         private double _widthPerHeight = 1.0;
         private bool _minimizeEdgeLength = true;
+        private bool _ignoreCollapsedVertices = false;
         internal const int MaxPermutations = 50;
         private SugiyamaEdgeRoutings _edgeRouting = SugiyamaEdgeRoutings.Traditional;
 
@@ -115,6 +116,19 @@
 
                 _minimizeEdgeLength = value;
                 NotifyPropertyChanged("MinimizeEdgeLength");
+            }
+        }
+
+        public bool IgnoreCollapsedVertices
+        {
+            get { return _ignoreCollapsedVertices; }
+            set
+            {
+                if (value == _ignoreCollapsedVertices)
+                    return;
+
+                _ignoreCollapsedVertices = value;
+                NotifyPropertyChanged("IgnoreCollapsedVertices");
             }
         }
 

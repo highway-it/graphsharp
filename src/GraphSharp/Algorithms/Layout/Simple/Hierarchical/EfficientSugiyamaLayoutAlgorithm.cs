@@ -80,12 +80,17 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
             //make a copy of the original graph
             _graph = new BidirectionalGraph<SugiVertex, SugiEdge>();
 
+            var ignoreCollapsedVertices = Parameters.IgnoreCollapsedVertices;
+
             //copy the vertices
             foreach (var vertex in VisitedGraph.Vertices)
             {
                 Size size = new Size();
                 if (_vertexSizes != null)
                     _vertexSizes.TryGetValue(vertex, out size);
+
+                if (ignoreCollapsedVertices && (size.Width == 0.0 || size.Height == 0.0))
+                    continue;
 
                 var vertexWrapper = new SugiVertex(vertex, size);
                 _graph.AddVertex(vertexWrapper);
@@ -95,8 +100,8 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
             //copy the edges
             foreach (var edge in VisitedGraph.Edges)
             {
-                var edgeWrapper = new SugiEdge(edge, _vertexMap[edge.Source], _vertexMap[edge.Target]);
-                _graph.AddEdge(edgeWrapper);
+                if (_vertexMap.TryGetValue(edge.Source, out var source) && _vertexMap.TryGetValue(edge.Target, out var target))
+                    _graph.AddEdge(new SugiEdge(edge, source, target));
             }
         }
 
