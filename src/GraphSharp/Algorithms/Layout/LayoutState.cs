@@ -39,8 +39,6 @@ namespace GraphSharp.Algorithms.Layout
 			int iteration,
 			string message )
 		{
-			Debug.Assert( computationTime != null );
-
 			Positions = positions;
 			OverlapRemovedPositions = overlapRemovedPositions != null ? overlapRemovedPositions : positions;
 
