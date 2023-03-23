@@ -173,7 +173,8 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
 
             double layerDistance = Parameters.LayerDistance;
             _layerPositions = new double[_layers.Count];
-            _layerPositions[0] = 0;
+            if(_layers.Count > 0)
+                _layerPositions[0] = 0;
             for (int i = 1; i < _layers.Count; i++)
                 _layerPositions[i] = _layerPositions[i - 1] + _layerHeights[i - 1] + layerDistance;
 
