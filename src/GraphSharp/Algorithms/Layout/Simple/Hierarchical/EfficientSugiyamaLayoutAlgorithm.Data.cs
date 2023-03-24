@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics.Contracts;
-using QuickGraph;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
+
+using QuickGraph;
 
 namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
 {
@@ -104,7 +100,7 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
             public int PermutationIndex;
             public int TempPosition;
             public bool DoNotOpt;
-            public readonly Size Size;
+            public Size Size;
 
             public SugiVertex()
             {

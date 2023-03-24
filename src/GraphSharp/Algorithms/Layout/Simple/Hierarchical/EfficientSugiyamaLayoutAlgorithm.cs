@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using QuickGraph;
-using System.Windows;
-using System.Diagnostics.Contracts;
-using QuickGraph.Algorithms.Search;
-using QuickGraph.Algorithms;
 using System.Linq;
-using System;
+using System.Windows;
+using System.Windows.Media;
+
 using GraphSharp.Algorithms.EdgeRouting;
+
+using QuickGraph;
 
 namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
 {
@@ -112,15 +111,40 @@ namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
         {
             InitTheGraph();
 
+            var angle = Parameters.Direction switch
+            {
+                LayoutDirection.LeftToRight => -90.0,
+                LayoutDirection.TopToBottom =>   0.0,
+                LayoutDirection.RightToLeft =>  90.0,
+                LayoutDirection.BottomToTop => 180.0,
+                _                           =>   0.0
+            };
+
+            if (angle == -90.0 || angle == 90.0)
+            {
+                foreach (var vertex in _graph.Vertices)
+                    vertex.Size = new Size(vertex.Size.Height, vertex.Size.Width);
+            }
+
             //first step
             DoPreparing();
 
             BuildSparseNormalizedGraph();
             DoCrossingMinimizations();
             CalculatePositions();
-        }
 
-        
+            if (angle != 0.0)
+            {
+                var transform = new RotateTransform(angle);
+
+                foreach (var (vextex, position) in VertexPositions.ToList())
+                    VertexPositions[vextex] = transform.Transform(position);
+
+                foreach (var route in EdgeRoutes.Values.ToList())
+                    for (var index = 0; index < route.Length; index++)
+                        route[index] = transform.Transform(route[index]);
+            }
+        }
 
         #region IEdgeRoutingAlgorithm<TVertex,TEdge,TGraph> Members
 

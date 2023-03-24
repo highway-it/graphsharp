@@ -1,8 +1,8 @@
 ﻿namespace GraphSharp.Algorithms.Layout.Simple.Hierarchical
 {
-	public class EfficientSugiyamaLayoutParameters : LayoutParametersBase
-	{
-        //private LayoutDirection _direction = LayoutDirection.TopToBottom;
+    public class EfficientSugiyamaLayoutParameters : LayoutParametersBase
+    {
+        private LayoutDirection _direction = LayoutDirection.TopToBottom;
         private double _layerDistance = 15.0;
         private double _vertexDistance = 15.0;
         private int _positionMode = -1;
@@ -14,8 +14,7 @@
         internal const int MaxPermutations = 50;
         private SugiyamaEdgeRoutings _edgeRouting = SugiyamaEdgeRoutings.Traditional;
 
-        //it will be available on next releases
-        /*public LayoutDirection Direction
+        public LayoutDirection Direction
         {
             get { return _direction; }
             set
@@ -26,7 +25,7 @@
                 _direction = value;
                 NotifyPropertyChanged("Direction");
             }
-        }*/
+        }
 
         public double LayerDistance
         {
