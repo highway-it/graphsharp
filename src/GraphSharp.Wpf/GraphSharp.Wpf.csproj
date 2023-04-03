@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
 
     <PackageId>HIT.GraphSharp.Wpf</PackageId>
-    <Description>Fork of the Graph# library WPF controls for .NET Core</Description>
+    <Description>Fork of the Graph# library WPF controls for .NET 7.0</Description>
     <PackageTags>GraphSharp,Graph#,graph</PackageTags>
 
     <RootNamespace>GraphSharp</RootNamespace>

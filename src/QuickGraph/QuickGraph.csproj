@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
 
     <PackageId>HIT.QuickGraph</PackageId>
-    <Description>Fork of the QuickGraph library for .NET Standard</Description>
+    <Description>Fork of the QuickGraph library for .NET 7.0</Description>
     <PackageTags>QuickGraph,graph</PackageTags>
   </PropertyGroup>
 
