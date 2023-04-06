@@ -84,7 +84,10 @@ namespace GraphSharp.Controls
                 // subscribe to events of the Graph mutations
                 //
                 if (!IsCompoundMode && Graph is IMutableBidirectionalGraph<TVertex, TEdge> mutableGraph)
+                {
+                    DetachGraph(mutableGraph);
                     AttachGraph(mutableGraph);
+                }
             }
 
             _sizes = null;
