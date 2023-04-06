@@ -13,7 +13,6 @@ namespace GraphSharp.Controls
         where TEdge : IEdge<TVertex>
         where TGraph : class, IBidirectionalGraph<TVertex, TEdge>
     {
-
         protected void RemoveAllGraphElement()
         {
             foreach (var vertex in _vertexControls.Keys.ToArray())
@@ -84,17 +83,8 @@ namespace GraphSharp.Controls
                 //
                 // subscribe to events of the Graph mutations
                 //
-                if (!IsCompoundMode)
-                {
-                    var mutableGraph = Graph as IMutableBidirectionalGraph<TVertex, TEdge>;
-                    if (mutableGraph != null)
-                    {
-                        mutableGraph.VertexAdded += OnMutableGraph_VertexAdded;
-                        mutableGraph.VertexRemoved += OnMutableGraph_VertexRemoved;
-                        mutableGraph.EdgeAdded += OnMutableGraph_EdgeAdded;
-                        mutableGraph.EdgeRemoved += OnMutableGraph_EdgeRemoved;
-                    }
-                }
+                if (!IsCompoundMode && Graph is IMutableBidirectionalGraph<TVertex, TEdge> mutableGraph)
+                    AttachGraph(mutableGraph);
             }
 
             _sizes = null;
@@ -163,18 +153,44 @@ namespace GraphSharp.Controls
             }
         }
 
-        private void OnMutableGraph_EdgeRemoved(TEdge edge)
+        private static void AttachGraph(object sender, RoutedEventArgs e)
         {
-            if (_edgeControls.ContainsKey(edge))
+            var graphLayout = (GraphLayout<TVertex, TEdge, TGraph>) sender;
+
+            if (!graphLayout.IsCompoundMode && graphLayout.Graph is IMutableBidirectionalGraph<TVertex, TEdge> mutableGraph)
             {
-                _edgesRemoved.Enqueue(edge);
-                DoNotificationLayout();
+                graphLayout.DetachGraph(mutableGraph);
+                graphLayout.AttachGraph(mutableGraph);
             }
         }
 
-        private void OnMutableGraph_EdgeAdded(TEdge edge)
+        private static void DetachGraph(object sender, RoutedEventArgs e)
         {
-            _edgesAdded.Enqueue(edge);
+            var graphLayout = (GraphLayout<TVertex, TEdge, TGraph>) sender;
+
+            if (graphLayout.Graph is IMutableBidirectionalGraph<TVertex, TEdge> mutableGraph)
+                graphLayout.DetachGraph(mutableGraph);
+        }
+
+        private void AttachGraph(IMutableBidirectionalGraph<TVertex, TEdge> mutableGraph)
+        {
+            mutableGraph.VertexAdded   += OnMutableGraph_VertexAdded;
+            mutableGraph.VertexRemoved += OnMutableGraph_VertexRemoved;
+            mutableGraph.EdgeAdded     += OnMutableGraph_EdgeAdded;
+            mutableGraph.EdgeRemoved   += OnMutableGraph_EdgeRemoved;
+        }
+
+        private void DetachGraph(IMutableBidirectionalGraph<TVertex, TEdge> mutableGraph)
+        {
+            mutableGraph.VertexAdded   -= OnMutableGraph_VertexAdded;
+            mutableGraph.VertexRemoved -= OnMutableGraph_VertexRemoved;
+            mutableGraph.EdgeAdded     -= OnMutableGraph_EdgeAdded;
+            mutableGraph.EdgeRemoved   -= OnMutableGraph_EdgeRemoved;
+        }
+
+        private void OnMutableGraph_VertexAdded(TVertex vertex)
+        {
+            _verticesAdded.Enqueue(vertex);
             DoNotificationLayout();
         }
 
@@ -187,10 +203,19 @@ namespace GraphSharp.Controls
             }
         }
 
-        private void OnMutableGraph_VertexAdded(TVertex vertex)
+        private void OnMutableGraph_EdgeAdded(TEdge edge)
         {
-            _verticesAdded.Enqueue(vertex);
+            _edgesAdded.Enqueue(edge);
             DoNotificationLayout();
+        }
+
+        private void OnMutableGraph_EdgeRemoved(TEdge edge)
+        {
+            if (_edgeControls.ContainsKey(edge))
+            {
+                _edgesRemoved.Enqueue(edge);
+                DoNotificationLayout();
+            }
         }
 
         public VertexControl GetVertexControl(TVertex vertex)

@@ -261,6 +261,9 @@ namespace GraphSharp.Controls
 
         public GraphLayout()
         {
+            Loaded   += AttachGraph;
+            Unloaded += DetachGraph;
+
             AddHandler(GraphElementBehaviour.HighlightTriggeredEvent,
                        new HighlightTriggerEventHandler(HighlightTriggerEventHandler));
         }
